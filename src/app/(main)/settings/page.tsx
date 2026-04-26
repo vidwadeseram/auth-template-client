@@ -19,8 +19,8 @@ export default function SettingsPage() {
     try {
       // API call would go here via useAuth or apiClient
       toast.success("Settings updated");
-    } catch (err: any) {
-      toast.error(err.message || "Update failed");
+    } catch (err: unknown) {
+      toast.error((err instanceof Error ? err.message : null) || "Update failed");
     } finally {
       setLoading(false);
     }

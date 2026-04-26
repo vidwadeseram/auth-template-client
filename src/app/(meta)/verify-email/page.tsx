@@ -21,7 +21,7 @@ function VerifyEmailForm() {
     e.preventDefault();
     setLoading(true);
     try { await verifyEmail(token); setDone(true); toast.success("Email verified!"); }
-    catch (err: any) { toast.error(err.message || "Verification failed"); }
+    catch (err: unknown) { toast.error((err instanceof Error ? err.message : null) || "Verification failed"); }
     finally { setLoading(false); }
   }
 

@@ -25,8 +25,8 @@ export default function RegisterPage() {
       await register(form);
       toast.success("Registration successful! Check your email to verify.");
       router.push("/login");
-    } catch (err: any) {
-      toast.error(err.message || "Registration failed");
+    } catch (err: unknown) {
+      toast.error((err instanceof Error ? err.message : null) || "Registration failed");
     } finally {
       setLoading(false);
     }
