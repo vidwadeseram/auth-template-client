@@ -58,7 +58,7 @@ npm run dev
 ```
 src/
 ├── app/
-│   ├── (auth)/
+│   ├── (meta)/
 │   │   ├── login/                 # Login
 │   │   ├── register/              # Register
 │   │   ├── forgot-password/       # Forgot password
