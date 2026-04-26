@@ -8,13 +8,13 @@ test.describe("Client Auth", () => {
 
   test("login page renders", async ({ page }) => {
     await page.goto("/login");
-    await expect(page.getByText(/welcome back/i)).toBeVisible();
+    await expect(page.getByText(/welcome back/i).first()).toBeVisible();
     await expect(page.getByLabel(/email/i)).toBeVisible();
     await expect(page.getByLabel(/password/i)).toBeVisible();
   });
 
   test("register page renders", async ({ page }) => {
     await page.goto("/register");
-    await expect(page.getByText(/create account/i)).toBeVisible();
+    await expect(page.getByText(/create account/i).first()).toBeVisible();
   });
 });
