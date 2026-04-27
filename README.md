@@ -111,6 +111,22 @@ src/
 - [go-auth-template](https://github.com/vidwadeseram/go-auth-template)
 - [go-multi-tenant-auth-template](https://github.com/vidwadeseram/go-multi-tenant-auth-template)
 
+## Security Considerations
+
+### Token Storage
+
+This template stores JWT access tokens in memory (via React context) and refresh tokens in `localStorage`. This is an intentional architectural decision with tradeoffs:
+
+| Approach | XSS Risk | CSRF Risk | Notes |
+|----------|:--------:|:---------:|-------|
+| **localStorage** (current) | ⚠️ Vulnerable | ✅ Safe | Simpler implementation; token accessible to any JS on the page |
+| **httpOnly cookies** | ✅ Safe | ⚠️ Vulnerable | Requires CSRF protection; backend must set cookies |
+| **memory + httpOnly refresh** | ✅ Best | ✅ Safe | Access token in memory, refresh in httpOnly cookie; most secure |
+
+**Current choice rationale**: The shared `@vidwadeseram/auth-ui-shared` library is designed to work with any backend. Since httpOnly cookies require backend coordination (CORS, SameSite, cookie settings), localStorage provides universal compatibility out of the box.
+
+**For production**, consider switching to httpOnly cookies for refresh tokens. The shared library's `ApiClient` can be extended to support `credentials: 'include'` for cookie-based auth.
+
 ## License
 
 MIT
